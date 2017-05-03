@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+2017 Felipe Rodríguez Gutiérrez
+
+CODIGO CREADO BAJO LICENCIA CREATIVE COMMONS
+
+Reconocimiento - NoComercial - CompartirIgual (by-nc-sa): 
+
+No se permite un uso comercial de la obra original ni de las posibles obras 
+derivadas, la distribución de las cuales se debe hacer con una licencia igual
+a la que regula la obra original.
+-->
+
+<!--
+Módulo: Desarrollo Web Entorno Cliente
+Tema 06: Programación AJAX en JavaSccript
+Tarea 6: Starwarspedia
+Alumno: Felipe Rodríguez Gutiérrez
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>DWEC - Tarea 6 - Programación AJAX en JavaScript </title>
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="css/estilos.css" rel="stylesheet" />
+    <script src="libs/jquery-3.2.1.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
+    <script src="libs/swapp.js"></script>
+</head>
+
+<body>
+    <h1>STAR DWEC - Tarea 06</h1> 
+
+    <h2>Puede seleccionar una pelicula:</h2> 
+
+    <div class="container">
+        <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
+            <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li data-target="#myCarousel" data-slide-to="5"></li>
+                <li data-target="#myCarousel" data-slide-to="6"></li>
+                <li data-target="#myCarousel" data-slide-to="7"></li>
+            </ol>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img id="1" class="center-block" src="img/sw_01_poster.jpg" alt="Eposidio IV">
+                </div>
+                <div class="item">
+                    <img id="2" class="center-block" src="img/sw_02_poster.jpg" alt="Episodio V">
+                </div>
+                <div class="item">
+                    <img id="3" class="center-block" src="img/sw_03_poster.jpg" alt="Episodio VI">
+                </div>
+                <div class="item">
+                    <img id="4" class="center-block" src="img/sw_04_poster.jpg" alt="Episodio I">
+                </div>
+                <div class="item">
+                    <img id="5" class="center-block" src="img/sw_05_poster.jpg" alt="Episodio II">
+                </div>
+                <div class="item">
+                    <img id="6" class="center-block" src="img/sw_06_poster.jpg" alt="Episodio III">
+                </div>
+                <div class="item">
+                    <img id="7" class="center-block" src="img/sw_07_poster.jpg" alt="Episodio VII">
+                </div>
+            </div>
+
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+
+    <h2>Buscarla por el titulo:</h2>
+
+    <div id="cuadro-busqueda" class="input-group">
+      <input id="buscaPelicula" type="text" class="form-control" placeholder="Búsqueda de pelicula">
+      <div class="input-group-btn">
+        <button id="enviarPelicula" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+
+    <div id="errorPelicula" class="error hide"></div>
+
+    <div id="load" class="text-center hide"><img src="img/load.gif"></div>
+
+    <h2>Buscar un personaje:</h2>
+
+    <div id="cuadro-busqueda" class="input-group">
+      <input id="buscaPersonaje" type="text" class="form-control" placeholder="Búsqueda de personaje">
+      <div class="input-group-btn">
+        <button id="enviarPersonaje" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+
+    <div id="errorPersonaje" class="error hide"></div>
+
+    <div id="resultado" class="container con hide"></div>
+
+    <footer>DWEC - Tarea 6 - Felipe Rodríguez Gutiérrez - 2016/2017</footer>
+</body>
+
+</html>

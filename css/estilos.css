@@ -1,0 +1,92 @@
+/*
+2017 Felipe Rodríguez Gutiérrez
+
+CODIGO CREADO BAJO LICENCIA CREATIVE COMMONS
+
+Reconocimiento - NoComercial - CompartirIgual (by-nc-sa): 
+
+No se permite un uso comercial de la obra original ni de las posibles obras 
+derivadas, la distribución de las cuales se debe hacer con una licencia igual
+a la que regula la obra original.
+*/
+
+/*
+Módulo: Desarrollo Web Entorno Cliente
+Tema 06: Modelo de objetos de documento en JavaScript
+Tarea 6: Starwarspedia
+Alumno: Felipe Rodríguez Gutiérrez
+*/
+/* 
+    Created on : 26-abr-2017, 19:55:41
+    Author     : felipon
+*/
+
+/* GENERALES DE LA PLANTILLA */
+/* ESTILOS DE LA FUENTE */
+@font-face {
+    font-family: 'star_jediregular';
+    src: url('../fonts/starjedi-webfont.woff2') format('woff2'),
+         url('../fonts/starjedi-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    -webkit-font-smoothing: antialiased !important;
+    background-color: #c1c5c9;
+    background-image: url(../img/bg.jpg);
+}
+
+body {
+    /*background-color: #ffffff; POR DEFECTO*/
+    /*background-color: #1c1e22; GRIS */
+    background-color: #121723;
+    border-radius: 5px;
+    /*color: #545454; POR DEFECTO*/
+    color: #FFD700;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5em;
+    margin: 2em auto;
+    max-width: 800px;
+    padding: 4em 2em 1em;
+    padding-top: 1em;
+}
+
+h1 {
+    text-align: center;
+    font-family: "star_jediregular";
+}
+
+footer {
+    margin-top: 1em;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+/* ESTILOS DE LA HOJA */
+
+.container {
+    margin: 0;
+    width: 100%;
+}
+
+.container.con {
+    padding: 0;
+}
+
+.container.res{
+    margin-top: 5px;
+    border: solid 2px;
+    border-radius: 5px;
+    color: #FFD700;
+}
+
+.error {
+    display: block;
+    padding-left: 2px;
+    margin-top: 5px;
+    border: solid 2px;
+    border-radius: 5px;
+    color: #FF0000;
+}

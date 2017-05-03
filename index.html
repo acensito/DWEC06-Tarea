@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+2017 Felipe Rodríguez Gutiérrez
+
+CODIGO CREADO BAJO LICENCIA CREATIVE COMMONS
+
+Reconocimiento - NoComercial - CompartirIgual (by-nc-sa): 
+
+No se permite un uso comercial de la obra original ni de las posibles obras 
+derivadas, la distribución de las cuales se debe hacer con una licencia igual
+a la que regula la obra original.
+-->
+
+<!--
+Módulo: Desarrollo Web Entorno Cliente
+Tema 06: Programación AJAX en JavaSccript
+Tarea 6: Starwarspedia
+Alumno: Felipe Rodríguez Gutiérrez
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>DWEC - Tarea 6 - Programación AJAX en JavaScript </title>
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="css/estilos.css" rel="stylesheet" />
+    <script src="libs/jquery-3.2.1.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
+    <script src="libs/swapp.js"></script>
+</head>
+
+<body>
+    <h1>STAR DWEC - Tarea 06</h1> 
+
+	<div id="cuadro-busqueda" class="input-group">
+	  <input id="busqueda" type="text" class="form-control" placeholder="Búsqueda de personaje">
+	  <div class="input-group-btn">
+	    <button id="enviarPersonaje" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	  </div>
+	</div>
+
+    <span id="error"></span>
+
+    <div id="load" class="text-center hide"><img src="img/load.gif"></div>
+
+    <div id="resultado" class="container con hide"></div>
+
+    <footer>DWEC - Tarea 6 - Felipe Rodríguez Gutiérrez - 2016/2017</footer>
+</body>
+
+</html>
