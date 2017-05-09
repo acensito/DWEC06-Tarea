@@ -63,7 +63,12 @@ $(document).ready(function(){
 /* EVENTOS AJAX BUSQUEDA*/
 /************************/
 
-
+/**
+ * Metodo buscaPersonaje, que recupera el del input de búsqueda de personaje, lo
+ * envia a la API y recupera el resultado. Dependiendo del resultado obtenido
+ * envia al metodo para su proceso o muestra los correspondientes mensajes de
+ * error.
+ */
 function buscaPersonaje(){
     //Obtenemos el valor del cuadro de texto
     var valor = $("#buscaPersonaje").val();
@@ -72,157 +77,367 @@ function buscaPersonaje(){
     if (valor) {
         //Ocultamos algún resultado previo
         $('#resultado').addClass('hide');
-        //Ocultamos el cuadro de búsqueda
-        $('#cuadro-busqueda').addClass('hide');
+        //Ocultamos algún error existente
+        $('#errorPelicula').addClass('hide');
+        $('#errorPersonaje').addClass('hide');
+        //Ocultamos el marco con los elementos
+        $('#marco-ejercicio').addClass('hide');
         //Mostramos el gif de la espada laser cargando
         $('#load').removeClass('hide');
 
-
+        //Hacemos la llamada AJAX
         $.ajax({
-        url: 'https://swapi.co/api/people/?search=' + valor,
-                type: 'GET',
-                dataType: 'json'
+            url: 'https://swapi.co/api/people/?search=' + valor,
+            type: 'GET',
+            dataType: 'json'
         })
 
-        .done(function(response) { muestraPersonaje(response);
-                console.log(response);
+        //En el caso de recibir respuesta correcta
+        .done(function(response) { 
+            //Elaboramos la respuesta llamando al metodo
+            muestraPersonaje(response);
+            //Mostramos por consola la respuesta por DEBUG
+            //console.log(response);
         })
 
+        //En el caso de no recibir respuesta correcta
         .fail(function() {
-                console.log("error");
-                $('#error').text('Ha ocurrido un error');
+            //Mostramos un mensaje en la consola por DEBUG
+            console.log("error");
+            //Mostramos un mensaje en la página
+            $('#error-conexion').removeClass('hide');
+            $('#load').addClass('hide');
         })
 
+        //En cualquier caso
         .always(function() {
-                console.log("Accion completada");
+            //Mostramos un mensaje en la consola por DEBUG
+            console.log("Accion completada");
         });
     } else {
+        //Ocultamos algún resultado previo
+        $('#resultado').addClass('hide');
+        //Mostramos el cuadro de errores de personaje, ocultamos el de pelicula
+        //por si se encontrara activo
         $('#errorPersonaje').removeClass('hide');
+        $('#errorPelicula').addClass('hide');
+        //Le asignamos un mensaje
         $('#errorPersonaje').html('Error sith: Primero un texto introducir debes');
     }
 }
 
+/**
+ * Metodo buscaPelicula, que recupera el del input de búsqueda de pelicula, lo
+ * envia a la API y recupera el resultado. Dependiendo del resultado obtenido
+ * envia al metodo para su proceso o muestra los correspondientes mensajes de
+ * error.
+ */
 function buscaPelicula(){
-	$('#resultado').addClass('hide');
-	$('#cuadro-busqueda').addClass('hide');
-	$('#load').removeClass('hide');
-	var valor = $('#buscaPelicula').val();
+    //Obtenemos el valor del cuadro de texto
+    var valor = $('#buscaPelicula').val();
+    
+    //Si se ha introducido texto
+    if (valor) {
+        //Ocultamos algún resultado previo
+        $('#resultado').addClass('hide');
+        //Ocultamos algún error existente
+        $('#errorPelicula').addClass('hide');
+        $('#errorPersonaje').addClass('hide');
+        //Ocultamos el marco con los elementos
+        $('#marco-ejercicio').addClass('hide');
+        //Mostramos el gif de la espada laser cargando
+        $('#load').removeClass('hide');
 
-	$.ajax({
-	url: 'https://swapi.co/api/films/?search=' + valor,
-		type: 'GET',
-		dataType: 'json'
-	})
+        //Hacemos la llamada AJAX
+        $.ajax({
+            url: 'https://swapi.co/api/films/?search=' + valor,
+            type: 'GET',
+            dataType: 'json'
+        })
 
-	.done(function(response) { muestraPelicula(response);
-		//console.log(response);
-	})
+        //En el caso de recibir respuesta correcta
+        .done(function(response) { 
+            //Elaboramos la respuesta llamando al metodo
+            muestraPelicula(response);
+            //Mostramos por consola la respuesta por DEBUG
+            //console.log(response);
+        })
 
-	.fail(function() {
-		console.log("error");
-		$('#error').text('Ha ocurrido un error');
-	})
+        //En el caso de no recibir respuesta correcta
+        .fail(function() {
+            //Mostramos un mensaje en la consola por DEBUG
+            console.log("error");
+            //Mostramos un mensaje en la página
+            $('#error-conexion').removeClass('hide');
+            $('#load').addClass('hide');
+        })
 
-	.always(function() {
-		console.log('Acciones completadas');
-	});
+        //En cualquier caso
+        .always(function() {
+            //Mostramos un mensaje en la consola por DEBUG
+            console.log("Accion completada");
+        });
+    } else {
+        //Ocultamos algún resultado previo
+        $('#resultado').addClass('hide');
+        //Mostramos el cuadro de errores
+        $('#errorPelicula').removeClass('hide');
+        $('#errorPersonaje').addClass('hide');
+        //Le asignamos un mensaje
+        $('#errorPelicula').html('Error sith: Primero un texto introducir debes');
+    }
 }
 
+/**
+ * Metodo buscaEpisodio, que recupera el id del episodio pasado por parametro, lo
+ * envia a la API y recupera el resultado. Dependiendo del resultado obtenido
+ * envia al metodo para su proceso o muestra los correspondientes mensajes de
+ * error.
+ * 
+ * @param {type} idEpisodio 
+ */
 function buscaEpisodio(idEpisodio){
-	$('#resultado').addClass('hide');
-	$('#load').removeClass('hide');
+    //Ocultamos algún resultado previo
+    $('#resultado').addClass('hide');
+    //Ocultamos algún error existente
+    $('#errorPelicula').addClass('hide');
+    $('#errorPersonaje').addClass('hide');
+    //Ocultamos el marco con los elementos
+    $('#marco-ejercicio').addClass('hide');
+    //Mostramos el gif de la espada laser cargando
+    $('#load').removeClass('hide');
 
-	$.ajax({
-	url: 'https://swapi.co/api/films/' + idEpisodio,
-		type: 'GET',
-		dataType: 'json'
-	})
+    //Hacemos la llamada AJAX
+    $.ajax({
+        url: 'https://swapi.co/api/films/' + idEpisodio,
+        type: 'GET',
+        dataType: 'json'
+    })
+    
+    //En el caso de recibir respuesta correcta
+    .done(function(response) { 
+        //Elaboramos la respuesta llamando al metodo
+        muestraEpisodio(response);
+        //Mostramos por consola la respuesta por DEBUG
+        //console.log(response);
+    })
+    
+    //En el caso de no recibir respuesta correcta
+    .fail(function() {
+        //Mostramos un mensaje en la consola por DEBUG
+        console.log("error");
+        //Mostramos un mensaje en la página
+        $('#error-conexion').removeClass('hide');
+        $('#load').addClass('hide');
+    })
 
-	.done(function(response) { muestraEpisodio(response);
-		console.log(response);
-	})
-
-	.fail(function() {
-		console.log("error");
-		$('#error').text('Ha ocurrido un error');
-	})
-
-	.always(function() {
-		console.log('Acciones completadas');
-	});
+    //En cualquier caso
+    .always(function() {
+        //Mostramos un mensaje en la consola por DEBUG
+        console.log("Accion completada");
+    });
 }
 
+/**
+ * Metodo nombrePersonaje, que al serle pasada la url del personaje recupera su
+ * nombre y lo inserta en la lista no ordenada de personajes
+ * 
+ * @param {type} urlPersonaje
+ */
+function nombrePersonaje(urlPersonaje){
+    //Hacemos la llamada AJAX
+    $.ajax({
+        url: urlPersonaje,
+        type: 'GET',
+        dataType: 'json'
+    })
+    
+    //En el caso de recibir respuesta correcta
+    .done(function(response) { 
+        //Agregamos a la etiqueta #personajes en la respuesta el listado de 
+        //personajes intervinientes en la pelicula
+        $('#personajes').append('<li>' + response.name + '</li>');
+        //Asincrono total, vaya
+    })
+    
+    //En el caso de no recibir respuesta correcta
+    .fail(function() {
+        //Mostramos un mensaje en la consola por DEBUG
+        console.log("error");
+        //Mostramos un mensaje en la página
+        $('#error-conexion').removeClass('hide');
+        $('#load').addClass('hide');
+    })
+
+    //En cualquier caso
+    .always(function() {
+        //Mostramos un mensaje en la consola por DEBUG
+        console.log("Accion completada");
+    });
+}
+
+
+/* MANEJO Y ELABORACION DE RESULTADOS */
+/**************************************/
+
+/**
+ * Metodo muestraPersonaje que recibe los datos y los gestiona para mostrarlo en
+ * la capa div de resultados.
+ * 
+ * @param {type} datos cadena json con los resultados
+ */
 function muestraPersonaje(datos){
-	$('#cuadro-busqueda').removeClass('hide');
-	$('#load').addClass('hide');
+    //Mostramos la capa de controles
+    $('#marco-ejercicio').removeClass('hide');
+    //Ocultamos el gif de la espada laser cargando
+    $('#load').addClass('hide');
 
-	var resultados = "";
+    //Preparamos una variable de resultados
+    var resultados = "";
 
-	if (datos.count == 0) {
-		$('#resultado').removeClass('hide');
-		$('#resultado').html('<strong>No se han encontrado coincidencias, pero Jar Jar Binks existe :_(</strong>');
-	} else {
-		$('#resultado').removeClass('hide');
-		for (i = 0; i < datos.count; i++){
-			resultados += '<div class="container res">';
-				resultados += '<h2>' + datos.results[i].name + '</h2>';
-				resultados += '<p><strong>Sexo: </strong>' + datos.results[i].gender + '</p>';
-				resultados += '<p><strong>Fecha nacimiento: </strong>' + datos.results[i].birth_year + '</p>';
-				resultados += '<p><strong>Peso: </strong>' + datos.results[i].mass + ' Kg</p>';
-				resultados += '<p><strong>Altura: </strong>' + conversorAltura(datos.results[i].height) + ' m</p>';
-			resultados += '</div>';
-		}
-		console.log(resultados);
-		$('#resultado').html(resultados);
-	}
+    //Si el contador de resultados ha sido cero
+    if (datos.count === 0) {
+        //Mostramos el cuadro de resultados
+        $('#resultado').removeClass('hide');
+        //Asignamos mensaje de feedback
+        $('#resultado').html('<div class="container res"><strong>No se han encontrado coincidencias, pero Jar Jar Binks existe :_(</strong></div>');
+    //Si existen resultados
+    } else {
+        //Mostramos el cuadro de resultados
+        $('#resultado').removeClass('hide');
+        //Recorremos los datos tantas como ocurrencias hayan existido
+        for (i = 0; i < datos.count; i++){
+            //Se abre una capa y se van añadiendo a la variable de resultados
+            resultados += '<div class="container res">';
+                resultados += '<h2>' + datos.results[i].name + '</h2>';
+                resultados += '<p><strong>Sexo: </strong>' + datos.results[i].gender + '</p>';
+                resultados += '<p><strong>Fecha nacimiento: </strong>' + datos.results[i].birth_year + '</p>';
+                resultados += '<p><strong>Peso: </strong>' + datos.results[i].mass + ' Kg</p>';
+                resultados += '<p><strong>Altura: </strong>' + conversorAltura(datos.results[i].height) + ' m</p>';
+            resultados += '</div>';
+        }
+        //Asignamos el html a la capa de resultados
+        $('#resultado').html(resultados);
+    }
 }
 
-function conversorAltura(altura){
-	return Number(altura) / 100;
-}
-
+/**
+ * Metodo muestraPelicula que recibe los datos y los gestiona para mostrarlo en
+ * la capa div de resultados.
+ * 
+ * @param {type} datos cadena json con los resultados
+ */
 function muestraPelicula(datos){
-	$('#cuadro-busqueda').removeClass('hide');
-	$('#load').addClass('hide');
+    //Mostramos la capa de controles
+    $('#marco-ejercicio').removeClass('hide');
+    //Ocultamos el gif de la espada laser cargando
+    $('#load').addClass('hide');
 
-	var resultados = "";
-
-	if (datos.count == 0) {
-		$('#resultado').removeClass('hide');
-		$('#resultado').html('<strong>No se han encontrado coincidencias,tal vez lo tuyo sea Star Trek ;)</strong>');
-	} else {
-		$('#resultado').removeClass('hide');
-		for (i = 0; i < datos.count; i++){
-			//resultados += '<div><img src="img/sw_0'+datos.results[i].+'_poster.jpg"></div>'
-			resultados += '<div class="container res">';
-				resultados += '<h2>' + datos.results[i].title + '</h2>';
-				resultados += '<p><strong>Director: </strong>' + datos.results[i].director + '</p>';
-				resultados += '<p><strong>Productor: </strong>' + datos.results[i].producer + '</p>';
-				resultados += '<p><strong>Fecha estreno: </strong>' + conversorFecha(datos.results[i].release_date) + '</p>';
-
-			resultados += '</div>';
-		}
-		$('#resultado').html(resultados);
-	}
+    //Preparamos una variable de resultados
+    var resultados = "";
+    
+    //Si el contador de resultados ha sido cero
+    if (datos.count === 0) {
+        //Mostramos el cuadro de resultados
+        $('#resultado').removeClass('hide');
+        //Asignamos mensaje de feedback
+        $('#resultado').html('<div class="container res"><strong>No se han encontrado coincidencias,tal vez lo tuyo sea Star Trek ;)</strong></div>');
+    //Si existen resultados
+    } else {
+        //Mostramos el cuadro de resultados
+        $('#resultado').removeClass('hide');
+        //Recorremos los datos tantas como ocurrencias hayan existido
+        for (i = 0; i < datos.count; i++){
+            //Se abre una capa y se van añadiendo a la variable de resultados
+            resultados += '<div class="container res">';
+                resultados += '<h2>' + datos.results[i].title + '</h2>';
+                resultados += '<p><strong>Director: </strong>' + datos.results[i].director + '</p>';
+                resultados += '<p><strong>Productor: </strong>' + datos.results[i].producer + '</p>';
+                resultados += '<p><strong>Fecha estreno: </strong>' + conversorFecha(datos.results[i].release_date) + '</p>';
+                resultados += '<p><strong>Nº actores participantes: </strong>' + datos.results[i].characters.length + '</p>';
+            resultados += '</div>';
+        }
+        //Asignamos el html a la capa de resultados
+        $('#resultado').html(resultados);
+    }
 }
 
-function conversorFecha(fecha){
-	var fch = new Date(fecha);
-	return (fch.getDate() + '-' + fch.getMonth() + '-' + fch.getFullYear());
-}
-//HAY QUE TERMINAR ESTE BERENGENAL
+
+/**
+ * Metodo muestraEpisodio que recibe los datos y los gestiona para mostrarlo en
+ * la capa div resultados
+ * 
+ * @param {type} datos cadena json con los resultados
+ */
 function muestraEpisodio(datos) {
-	$('#resultado').removeClass('hide');
-	$('#load').addClass('hide');
-	var resultados = '';
+    //Mostramos la capa de controles
+    $('#marco-ejercicio').removeClass('hide');
+    //Mostramos la capa de resultados
+    $('#resultado').removeClass('hide');
+    //Ocultamos el gif de la espada laser cargando
+    $('#load').addClass('hide');
+    
+    //Preparamos una variable de resultados
+    var resultados = '';
 
-	resultados += '<div class="container res">';
-		resultados += '<h2>' + datos.title + '</h2>';
-		resultados += '<p><strong>Director: </strong>' + datos.director + '</p>';
-		resultados += '<p><strong>Productor: </strong>' + datos.producer + '</p>';
-		resultados += '<p><strong>Fecha estreno: </strong>' + conversorFecha(datos.release_date) + '</p>';
-		resultados += '<p><strong>Actores participantes: </strong>' + datos.characters.length + '</p>';
-	resultados += '</div>';
+    //Se abre una capa y se añade a dicha capa los diferentes resultados
+    resultados += '<div class="container res">';
+            resultados += '<h2>' + datos.title + '</h2>';
+            resultados += '<p><strong>Director: </strong>' + datos.director + '</p>';
+            resultados += '<p><strong>Productor: </strong>' + datos.producer + '</p>';
+            resultados += '<p><strong>Fecha estreno: </strong>' + conversorFecha(datos.release_date) + '</p>';
+            resultados += '<p><strong>Nº actores participantes: </strong>' + datos.characters.length + '</p>';
+            //En esta etiqueta que añadimos, añadiremos los personajes que 
+            //posteriormente vamos a buscar.
+            resultados += '<ul id="personajes"></ul>';
+    resultados += '</div>';
 
-	$('#resultado').html(resultados);
+    //Asignamos el html a la capa de resultados
+    $('#resultado').html(resultados);
+    
+    //EXTRA EXTRA:
+    //Si seleccionamos un poster de un episodio, vamos a añadir a los resultados
+    //los personajes que salen en dicho episodio. Para ello, vamos a obtener la
+    //url de cada personaje y vamos a pasarla al metodo correspondiente, el cual
+    //al obtener el dato lo insertará en la id de personajes de la capa de 
+    //resultados.
+    //
+    //Esta idea es algo chapuza a mi criterio sinceramente, aunque funciona
+    //tras haberme empapado el funcionamiento de Deferreds y Promises sin llegar
+    //a la solución que pretendía (devolver el resultado de un solo golpe).
+    //Creo que el secreto está en .then(), pero son las 01:24 y ya estoy alargando
+    //la tarea más de la cuenta.
+    for (i = 0; i < datos.characters.length; i++) {
+        nombrePersonaje(datos.characters[i]);
+    }
+}
+
+
+/* Funciones auxiliares */
+/************************/
+
+/**
+ * Función auxiliar para convertir la fecha al formato DD-MM-YYYY
+ * 
+ * @param {type} fecha String con en formato fecha ISO
+ * 
+ * @returns {String} String con la fecha formateada dd-mm-yyyy
+ */
+function conversorFecha(fecha){
+    //Instanciamos un nuevo objeto fecha
+    var fch = new Date(fecha);
+    //Devolvemos una cadena con el formato indicado
+    return (fch.getDate() + '-' + fch.getMonth() + '-' + fch.getFullYear());
+}
+
+/**
+ * Función auxiliar para pasar los cm de altura a metros
+ * 
+ * @param {type} altura altura en centimetros
+ * 
+ * @returns {Number} altura en metros con decimales
+ */
+function conversorAltura(altura){
+    //Se divide la altura entre 100
+    return Number(altura) / 100;
 }
